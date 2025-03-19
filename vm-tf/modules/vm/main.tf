@@ -42,6 +42,18 @@ resource "azurerm_network_security_group" "vm_nsg" {
   resource_group_name = var.resource_group_name
 
   security_rule {
+    name                       = "ansible_rule"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8787"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
     name                       = "ssh_rule"
     priority                   = 100
     direction                  = "Inbound"
